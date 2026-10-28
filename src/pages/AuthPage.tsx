@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Building2, User, Key, Mail, Phone, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Building2, User, Key, Mail, Phone, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export const AuthPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { login, register, quickLogin, showNotification } = useAuth();
+ const { login, register } = useAuth();
 
   const initialMode = searchParams.get('mode') === 'register' ? 'register' : 'login';
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
@@ -48,27 +48,7 @@ export const AuthPage: React.FC = () => {
     }
   };
 
-  const handleDemoLogin = async (demoRole: 'tenant' | 'owner' | 'admin') => {
-    const redirectTarget = searchParams.get('redirect');
-    try {
-      setIsLoading(true);
-      await quickLogin(demoRole);
-      if (redirectTarget && demoRole !== 'admin') {
-        navigate(redirectTarget);
-      } else if (demoRole === 'admin') {
-        navigate('/admin');
-      } else if (demoRole === 'owner') {
-        navigate('/dashboard/owner');
-      } else {
-        navigate('/dashboard/tenant');
-      }
-    } catch (err: any) {
-      setErrorMessage(err.message || 'Demo login failed');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+  
   return (
     <div className="min-h-screen bg-[#F8F7F4] py-12 px-4 sm:px-6 lg:px-8 flex flex-col justify-center text-[#20283B]">
       <div className="max-w-md w-full mx-auto space-y-6">
@@ -90,39 +70,7 @@ export const AuthPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Demo Fast Login Ribbon */}
-        <div className="bg-[#101A35] text-white p-4 rounded-2xl shadow-md border border-slate-800 space-y-2.5">
-          <div className="flex items-center justify-between text-xs">
-            <span className="font-bold text-[#B7B8FF]">Architecture Role Quick-Access</span>
-            <span className="text-[11px] text-slate-400 font-semibold">Instant Access</span>
-          </div>
-          <p className="text-[11px] text-slate-300">
-            Switch to any account role immediately to inspect permissions:
-          </p>
-          <div className="grid grid-cols-3 gap-2">
-            <button
-              type="button"
-              onClick={() => handleDemoLogin('tenant')}
-              className="py-1.5 px-2 bg-slate-800/90 hover:bg-[#4169E1] border border-slate-700 hover:border-[#4169E1] rounded-xl text-xs font-semibold text-slate-100 hover:text-white transition-all cursor-pointer text-center"
-            >
-              Tenant
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoLogin('owner')}
-              className="py-1.5 px-2 bg-slate-800/90 hover:bg-[#4169E1] border border-slate-700 hover:border-[#4169E1] rounded-xl text-xs font-semibold text-slate-100 hover:text-white transition-all cursor-pointer text-center"
-            >
-              Owner
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoLogin('admin')}
-              className="py-1.5 px-2 bg-slate-800/90 hover:bg-purple-600 border border-slate-700 hover:border-purple-600 rounded-xl text-xs font-semibold text-slate-100 hover:text-white transition-all cursor-pointer text-center"
-            >
-              Admin
-            </button>
-          </div>
-        </div>
+     
 
         {/* Card Container */}
         <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
