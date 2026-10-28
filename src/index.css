@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-navy: #101A35;
+    --color-royal: #4169E1;
+    --color-ivory: #F8F7F4;
+    --color-coolgray: #EEF1F6;
+    --color-lavender: #B7B8FF;
+    --color-charcoal: #20283B;
+  }
+
+  html {
+    font-family: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    background-color: #F8F7F4;
+    color: #20283B;
+  }
+
+  body {
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8F7F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Tabular numbers for price displays */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

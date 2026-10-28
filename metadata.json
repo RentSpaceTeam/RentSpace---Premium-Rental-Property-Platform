@@ -1,0 +1,8 @@
+{
+  "name": "RentSpace - Premium Rental Property Platform",
+  "description": "Full-stack rental property platform for finding and managing rooms, PGs, flats, and studio apartments.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
