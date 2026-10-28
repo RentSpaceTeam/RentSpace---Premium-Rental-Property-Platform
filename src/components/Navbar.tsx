@@ -19,85 +19,20 @@ import {
 import { useAuth } from '../context/AuthContext';
 
 export const Navbar: React.FC = () => {
-  const { user, logout, quickLogin } = useAuth();
+  const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [showDemoBar, setShowDemoBar] = useState(true);
+  
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleQuickSwitch = async (role: 'tenant' | 'owner' | 'admin') => {
-    await quickLogin(role);
-    setUserDropdownOpen(false);
-    if (role === 'admin') navigate('/admin');
-    else if (role === 'owner') navigate('/dashboard/owner');
-    else navigate('/dashboard/tenant');
-  };
+ 
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
     <header className="sticky top-0 z-50 bg-[#F8F7F4]/90 backdrop-blur-md border-b border-[#EEF1F6]">
-      {/* Platform & Role Evaluation Strip */}
-      {showDemoBar && (
-        <div className="bg-[#101A35] text-slate-200 text-xs py-1.5 px-4 sm:px-8 border-b border-slate-800">
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-white tracking-wide">RentSpace</span>
-              <span className="text-slate-500">·</span>
-              <span className="text-slate-200 font-medium">Enterprise Rental Architecture & Preview</span>
-              <span className="hidden md:inline text-slate-500">·</span>
-              <span className="hidden md:inline-flex items-center gap-1.5 text-slate-300">
-                <Database className="w-3.5 h-3.5 text-[#4169E1]" />
-                Dual Engine: MongoDB Atlas & High-Fidelity In-Memory
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-slate-300 hidden sm:inline text-[11px] uppercase tracking-wider font-bold">
-                Quick Role Switch:
-              </span>
-              <button
-                onClick={() => handleQuickSwitch('tenant')}
-                className={`px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${
-                  user?.role === 'tenant'
-                    ? 'bg-[#4169E1] text-white shadow-xs'
-                    : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
-                }`}
-              >
-                Tenant
-              </button>
-              <button
-                onClick={() => handleQuickSwitch('owner')}
-                className={`px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${
-                  user?.role === 'owner'
-                    ? 'bg-[#4169E1] text-white shadow-xs'
-                    : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
-                }`}
-              >
-                Owner
-              </button>
-              <button
-                onClick={() => handleQuickSwitch('admin')}
-                className={`px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${
-                  user?.role === 'admin'
-                    ? 'bg-purple-600 text-white shadow-xs'
-                    : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
-                }`}
-              >
-                Admin
-              </button>
-              <button
-                onClick={() => setShowDemoBar(false)}
-                className="text-slate-500 hover:text-slate-300 ml-2 cursor-pointer"
-                title="Dismiss demo bar"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+     
 
       {/* Primary Top Bar (Three-Zone Architectural Contract) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
