@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Lock, Building2, User, Key, Mail, Phone, ArrowRight, Sparkles } from 'lucide-react';
+import { X, Lock, User, Key, Mail, Phone, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface AuthModalProps {
@@ -17,7 +17,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   subtitle = 'Sign in to view full property addresses, contact owner details, and submit direct enquiries.',
   onSuccess
 }) => {
-  const { login, register, quickLogin, showNotification } = useAuth();
+  const { login, register } = useAuth();
   const [mode, setMode] = useState<'login' | 'register'>('login');
 
   const [name, setName] = useState('');
@@ -50,18 +50,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }
   };
 
-  const handleDemoLogin = async (demoRole: 'tenant' | 'owner' | 'admin') => {
-    try {
-      setIsLoading(true);
-      await quickLogin(demoRole);
-      onClose();
-      if (onSuccess) onSuccess();
-    } catch (err: any) {
-      setError(err.message || 'Demo login failed');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  
 
   return (
     <div className="fixed inset-0 z-50 bg-[#101A35]/70 backdrop-blur-sm flex items-center justify-center p-4">
@@ -86,39 +75,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </p>
         </div>
 
-        {/* 1-Click Fast Role Evaluator Strip */}
-        <div className="bg-slate-900 text-white p-3 rounded-xl mb-4 space-y-2 border border-slate-800">
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="font-semibold text-blue-400 flex items-center gap-1">
-              <Sparkles className="w-3 h-3" /> Quick Role Login:
-            </span>
-            <span className="text-slate-400">1-Click Test</span>
-          </div>
-          <div className="grid grid-cols-3 gap-1.5">
-            <button
-              type="button"
-              onClick={() => handleDemoLogin('tenant')}
-              className="py-1 px-2 bg-slate-800 hover:bg-blue-600 rounded text-[11px] font-medium text-slate-200 hover:text-white transition-colors"
-            >
-              Tenant
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoLogin('owner')}
-              className="py-1 px-2 bg-slate-800 hover:bg-blue-600 rounded text-[11px] font-medium text-slate-200 hover:text-white transition-colors"
-            >
-              Owner
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoLogin('admin')}
-              className="py-1 px-2 bg-slate-800 hover:bg-purple-600 rounded text-[11px] font-medium text-slate-200 hover:text-white transition-colors"
-            >
-              Admin
-            </button>
-          </div>
-        </div>
-
+       
         {/* Tabs */}
         <div className="flex items-center p-1 bg-slate-100 rounded-lg mb-4 text-xs font-semibold">
           <button
